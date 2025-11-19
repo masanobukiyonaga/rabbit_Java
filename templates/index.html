@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <img src="https://d2sf57sw5vr2iz.cloudfront.net/images/0513.jpg" alt="うづきちゃん">
+    <h2 class="card-title">{{ rabbit.name }}（{{ rabbit.age }}・{{ rabbit.gender }}）</h2>
+    <p>好きな食べ物：{{ rabbit.favorite_food }}</p>
+    <p>趣味：{{ rabbit.hobby }}</p>
+    <a href="/diary" class="button">📖 日記を読む</a>
+  </div>
+</div>
+{% endblock %}
+

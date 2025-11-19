@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <h2>ログイン</h2>
+
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+
+  <form method="POST" class="form-card">
+    <label>ユーザー名：<br>
+      <input type="text" name="username" class="input-field" required>
+    </label><br><br>
+
+    <label>パスワード：<br>
+      <input type="password" name="password" class="input-field" required>
+    </label><br><br>
+
+    <button type="submit" class="button">ログイン</button>
+  </form>
+  <div class="button-group" style="margin-top: 1.5rem;">
+    <a href="{{ url_for('index') }}" class="button">🏠 トップページへ戻る</a>
+  </div>
+</div>
+{% endblock %}

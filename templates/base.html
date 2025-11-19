@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>うづきちゃんの部屋</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   {% if session.logged_in %}
+    <a href="{{ url_for('logout') }}" class="button">ログアウト</a>
+  {% else %}
+    <a href="{{ url_for('login') }}" class="button">ログイン</a>
+  {% endif %}
+</head>
+<body>
+  <header>
+    <h1>うづきちゃんの部屋</h1>
+  </header>
+  {% block content %}{% endblock %}
+</body>
+</html>
