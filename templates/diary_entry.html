@@ -6,8 +6,8 @@
     <div class="card-date">{{ entry.date }}</div>
     <h2 class="card-title">{{ entry.title }}</h2>
 
-    {% if entry.image %}
-      <img src="{{ entry.image }}" alt="日記の画像">
+    {% if entry.image_url %}
+    <img src="{{ entry.image_url }}" alt="日記の画像">
     {% endif %}
 
     <div class="diary-content">{{ entry.content }}</div>

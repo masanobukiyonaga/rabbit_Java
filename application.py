@@ -52,6 +52,7 @@ def get_db_connection():
         user=DB_USER,
 	# 【修正】環境変数から読み込む（これで安全！）
         password=os.environ.get("DB_PASSWORD"),
+        database=DB_NAME,
         charset='utf8mb4'
     )
 
