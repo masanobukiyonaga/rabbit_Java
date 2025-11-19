@@ -51,7 +51,7 @@ def get_db_connection():
         port=DB_PORT,
         user=DB_USER,
 	# 【修正】環境変数から読み込む（これで安全！）
-	DB_PASSWORD = os.environ.get("DB_PASSWORD")
+        password=os.environ.get("DB_PASSWORD"),
         charset='utf8mb4'
     )
 
@@ -232,6 +232,13 @@ def test_s3():
         return f"S3にアクセス成功！オブジェクト数: {result.get('KeyCount', 0)}"
     except Exception as e:
         return f"接続エラー: {e}"
+
+# ------------------------
+# 投げ銭完了ページ
+# ------------------------
+@application.route('/thanks')
+def thanks():
+    return render_template('thanks.html')
 
 # ------------------------
 # ログイン・ログアウト

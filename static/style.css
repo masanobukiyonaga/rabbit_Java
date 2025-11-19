@@ -106,6 +106,18 @@ a.entry-title:hover {
   border-color: #d99b9b;
 }
 
+/* 投げ銭ボタン（目立つ色に） */
+.button.donate {
+  background-color: #ffdd57; /* 黄色/ゴールド */
+  color: #4a4a4a;
+  border-color: #e6c300;
+}
+
+.button.donate:hover {
+  background-color: #ffc107;
+  border-color: #d39e00;
+}
+
 .diary-content {
   white-space: pre-wrap;
   line-height: 1.6;
