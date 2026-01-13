@@ -4,7 +4,7 @@ AWS上に構築した、うさぎの成長記録・日記アプリケーショ�
 画像をクラウド（S3）に保存し、CDN（CloudFront）経由で高速配信する構成を実装しました。
 
 ## 📷 アプリの画面
-<img width="2494" height="1416" alt="スクリーンショット 2025-11-20 014313" src="https://github.com/user-attachments/assets/21204992-c6f5-4df3-a9ed-c5384ec0ad81" />
+<img width="2495" height="1401" alt="image" src="https://github.com/user-attachments/assets/be7ae3fd-2a06-4ca3-91cf-8383b8825d8f" />
 <img width="2495" height="1403" alt="スクリーンショット 2025-11-20 014406" src="https://github.com/user-attachments/assets/239805f4-56ad-4d10-9f2b-0847e1e9ae8e" />
 <img width="2482" height="1413" alt="スクリーンショット 2025-11-20 014701" src="https://github.com/user-attachments/assets/825dc704-4821-454a-afd7-9f50f0ff890d" />
 
