@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <h2>日記を編集する</h2>
+
+  <form method="POST" class="form-card">
+    <label>タイトル：<br>
+      <input type="text" name="title" value="{{ entry.title }}" required class="input-field">
+    </label><br><br>
+
+    <label>本文：<br>
+      <textarea name="content" rows="5" required class="input-area">{{ entry.content }}</textarea>
+    </label><br><br>
+
+    <button type="submit" class="button">💾 保存する</button>
+  </form>
+
+  <div class="button-group" style="margin-top: 1.5rem;">
+    <a href="{{ url_for('diary') }}" class="button">← 戻る</a>
+  </div>
+</div>
+{% endblock %}
