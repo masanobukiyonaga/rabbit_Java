@@ -1,35 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-  <h2>うづきちゃんの日記</h2>
+  <!-- Header and buttons removed as per user request -->
 
-  <!-- ボタンエリア -->
-  <div class="button-group">
-    <a href="{{ url_for('new_diary') }}" class="button">📝 日記を書く</a>
-    <a href="{{ url_for('index') }}" class="button">🏠 トップに戻る</a>
-  </div>
 
   <!-- 日記カード表示 -->
   {% for entry in entries %}
-    <div class="card">
-      <div class="card-header">
-        <div class="card-date">{{ entry['date'] }}</div>
-        <h3><a href="{{ url_for('diary_entry', entry_id=entry['id']) }}" class="entry-title">{{ entry['title'] }}</a></h3>
-      </div>
-
-      {% if entry['image_url'] %}
-        <img src="{{ entry['image_url'] }}" alt="日記画像" class="card-img">
-      {% endif %}
-
-      <p>{{ entry['content'][:100] }}{% if entry['content']|length > 100 %}...{% endif %}</p>
-
-      <div class="card-actions">
-        <a href="{{ url_for('edit_diary', entry_id=entry['id']) }}" class="button small">✏️ 編集</a>
-        <form action="{{ url_for('delete_diary', entry_id=entry['id']) }}" method="POST" style="display:inline;">
-          <button type="submit" onclick="return confirm('本当に削除しますか？')" class="button small danger">🗑️ 削除</button>
-        </form>
-      </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-date">{{ entry['date'] }}</div>
+      <h3><a href="{{ url_for('diary_entry', entry_id=entry['id']) }}" class="entry-title">{{ entry['title'] }}</a></h3>
     </div>
+
+    {% if entry['image_url'] %}
+    <img src="{{ entry['image_url'] }}" alt="日記画像" class="card-img">
+    {% endif %}
+
+    <p>{{ entry['content'][:100] }}{% if entry['content']|length > 100 %}...{% endif %}</p>
+
+    <div class="card-actions">
+      <a href="{{ url_for('edit_diary', entry_id=entry['id']) }}" class="button small">✏️ 編集</a>
+      <form action="{{ url_for('delete_diary', entry_id=entry['id']) }}" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('本当に削除しますか？')" class="button small danger">🗑️ 削除</button>
+      </form>
+    </div>
+  </div>
   {% endfor %}
 </div>
 {% endblock %}
