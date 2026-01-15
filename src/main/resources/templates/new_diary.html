@@ -3,7 +3,7 @@
 <div class="container">
   <h2>うづきちゃんの日記を書く</h2>
 
-  <form method="POST" action="{{ url_for('new_diary') }}" enctype="multipart/form-data" class="form-card">
+  <form method="POST" action="/diary/new" enctype="multipart/form-data" class="form-card">
     <label>タイトル：<br>
       <input type="text" name="title" required class="input-field">
     </label><br><br>
@@ -20,7 +20,7 @@
   </form>
 
   <div class="button-group" style="margin-top: 1.5rem;">
-    <a href="{{ url_for('diary') }}" class="button">← 戻る</a>
+    <a href="/diary" class="button">← 戻る</a>
   </div>
 </div>
 {% endblock %}

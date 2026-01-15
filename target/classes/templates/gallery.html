@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="masonry-wrapper">
+    <div class="masonry-grid">
+        <!-- 幅計算用の空要素 -->
+        <div class="grid-sizer"></div>
+
+        <!-- 日記データがあるだけ繰り返す -->
+        {% for entry in entries %}
+        <div class="grid-item">
+
+            <!-- 【変更点】ここを「画像拡大」から「日記ページへのリンク」に変えました -->
+            <a href="/diary/{{ entry.id }}">
+                <img src="{{ entry.image_url }}" alt="{{ entry.title }}">
+            </a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</main>
+{% endblock %}

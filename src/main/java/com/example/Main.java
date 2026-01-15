@@ -135,7 +135,7 @@ class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
-                .addResourceLocations("file:./static/");
+                .addResourceLocations("classpath:/static/");
     }
 
     @Override
@@ -265,6 +265,18 @@ class AppController {
         Map<String, Object> context = new HashMap<>();
         context.put("entries", entries);
         return render("diary.html", context);
+    }
+
+    // ギャラリーページを表示する命令
+    @GetMapping("/gallery")
+    @ResponseBody
+    public String gallery() {
+        // 日記データを全て取得する
+        List<Map<String, Object>> entries = jdbcTemplate.queryForList("SELECT * FROM diaries ORDER BY id DESC");
+        Map<String, Object> context = new HashMap<>();
+        context.put("entries", entries);
+        // gallery.html を表示する
+        return render("gallery.html", context);
     }
 
     @GetMapping("/diary/{id}")

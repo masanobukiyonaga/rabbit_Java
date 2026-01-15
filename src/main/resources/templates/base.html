@@ -6,8 +6,8 @@
   <title>うづきちゃんの部屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="うづきちゃんとの日々を綴るサイト">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/slide.css') }}">
+  <link rel="stylesheet" href="/static/css/style.css?v=2">
+  <link rel="stylesheet" href="/static/css/slide.css?v=2">
   <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
   <!-- Google Fonts (Template default + Noto Sans JP just in case) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,12 +21,12 @@
 
     <header>
 
-      <h1 id="logo"><a href="/"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="うづきちゃんの部屋"></a></h1>
+      <h1 id="logo"><a href="/"><img src="/static/images/logo.png" alt="うづきちゃんの部屋"></a></h1>
 
       <nav>
         <ul>
           <li><a href="/"><i class="fa-solid fa-house"></i>HOME</a></li>
-          <li><a href="/diary"><i class="fa-solid fa-book"></i>DIARY</a></li>
+          <li><a href="/gallery"><i class="fa-solid fa-camera"></i>GALLERY</a></li>
           {% if session.logged_in %}
           <li><a href="/logout"><i class="fa-solid fa-sign-out-alt"></i>LOGOUT</a></li>
           {% else %}
@@ -38,7 +38,8 @@
     </header>
 
     <main>
-      {% block content %}{% endblock %}
+      {% block content %}
+      {% endblock %}
     </main>
 
     {% block aside %}
@@ -66,7 +67,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/5.0.0/imagesloaded.pkgd.min.js"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="/static/js/main.js?v=2"></script>
 
   </div>
 </body>
