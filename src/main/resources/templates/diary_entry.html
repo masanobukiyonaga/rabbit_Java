@@ -1,20 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-  <div class="card">
-    <div class="card-date">{{ entry.date }}</div>
-    <h2 class="card-title">{{ entry.title }}</h2>
+<div class="notebook-container">
+  <div class="notebook-page">
 
+    <!-- 日付とタイトルエリア -->
+    <div class="notebook-header">
+      <span class="notebook-date">{{ entry.date }}</span>
+      <h2 class="notebook-title">TITLE: 『 {{ entry.title }} 』</h2>
+    </div>
+
+    <!-- 写真エリア（テープで貼った風） -->
     {% if entry.image_url %}
-    <img src="{{ entry.image_url }}" alt="日記の画像">
+    <div class="notebook-photo-frame">
+      <img src="{{ entry.image_url }}" alt="日記の画像">
+    </div>
     {% endif %}
 
-    <div class="diary-content">{{ entry.content }}</div>
-
-    <div class="button-group">
-      <a href="/diary" class="button">← 戻る</a>
+    <!-- 本文エリア -->
+    <div class="notebook-content">
+      {{ entry.content }}
     </div>
+
+    <!-- 戻るボタン -->
+    <div class="notebook-footer">
+      <a href="/gallery" class="button-handwritten">← 戻る</a>
+    </div>
+
   </div>
 </div>
 {% endblock %}

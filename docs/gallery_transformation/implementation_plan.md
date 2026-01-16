@@ -1,93 +1,143 @@
-# ギャラリー化 実装計画書（完全版）
+# 日記詳細ページ・手書き風リニューアル計画書
 
 ## 目的
 
-「DIARY」を「GALLERY」に完全に生まれ変らせます。
-URLも `/diary` ではなく `/gallery` でアクセスできるようにし、デザインもタイル状にします。
+1. **全体を見やすく**: スクロール量を減らすため、余白を調整してノートをコンパクトにします。
+2. **フッター固定**: 下のバー（Copyrightなど）を常に画面の一番下に表示させます。
 
-## 1. 編集するファイル
+## 1. デザインの調整方針
 
-- `templates/base.html`（ナビゲーション）
-- `src/main/java/com/example/Main.java`（URLの制御）
-- `templates/gallery.html`（**新規作成**：ギャラリーページの中身）
+- **ノート**: 余白（パディング）を減らし、画面を広く使えるようにします。
+- **フッター**: `position: fixed` を使って画面下部に固定します。
 
 ## 2. 作業手順
 
-### 手順 1: ナビゲーションの更新 (`base.html`)
+### 手順 1: `style.css` の修正
 
-「GALLERY」のリンク先を `/gallery` に変更します。
-（※すでにご自身で変更済みですね！完璧です！）
+既存の「手書きノート風デザイン」の部分を、以下のように書き換えて（上書きして）ください。
+※ フッターの固定用スタイルもここに追加します。
 
-```html
-<!-- 変更後 -->
-<li><a href="/gallery"><i class="fa-solid fa-camera"></i>GALLERY</a></li>
+```css
+/* =========================================
+   手書きノート風デザイン (Notebook Style)
+   ========================================= */
+
+/* 手書きフォントの適用 */
+.notebook-container {
+  font-family: "Yomogi", cursive;
+  padding: 1rem; /* 2rem -> 1rem に減らしました */
+  display: flex;
+  justify-content: center;
+  /* 画面の高さに合わせるが、内容が多い場合はスクロール可 */
+  min-height: 80vh; 
+  align-items: center; /* 上下中央寄せ */
+}
+
+/* ノートの紙のデザイン */
+.notebook-page {
+  background-color: #fcf6e8;
+  background-image: radial-gradient(#dcdcdc 1px, transparent 1px);
+  background-size: 20px 20px;
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem; /* 3rem -> 2rem に減らしました */
+  border-radius: 5px;
+  box-shadow: 
+    1px 1px 0 rgba(0,0,0,0.1),
+    5px 5px 15px rgba(0,0,0,0.2);
+  position: relative;
+  color: #4a3b32;
+  margin-bottom: 40px; /* フッターとかぶらないように余白 */
+}
+
+/* 日付 */
+.notebook-date {
+  display: block;
+  font-size: 1.1rem;
+  text-align: right;
+  margin-bottom: 0.2rem;
+  color: #666;
+}
+
+/* タイトル */
+.notebook-title {
+  font-size: 1.5rem; /* 少し小さく */
+  text-align: center;
+  border-bottom: 2px dashed #ccc;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 写真の装飾 */
+.notebook-photo-frame {
+  background: #fff;
+  padding: 8px; /* 10px -> 8px */
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  transform: rotate(-2deg);
+  width: 70%; /* 80% -> 70% にして高さを抑える */
+  margin: 0 auto 1.5rem auto; /* 2rem -> 1.5rem */
+  max-width: 400px;
+}
+
+.notebook-photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 本文 */
+.notebook-content {
+  font-size: 1.1rem;
+  line-height: 1.8; /* 2.0 -> 1.8 に詰める */
+  white-space: pre-wrap;
+}
+
+/* 戻るボタン */
+.button-handwritten {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.4rem 1.2rem;
+  border: 2px solid #4a3b32;
+  border-radius: 20px 5px 20px 5px;
+  color: #4a3b32;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.button-handwritten:hover {
+  background: #4a3b32;
+  color: #fff;
+  transform: scale(1.05); /* ポヨンと拡大 */
+}
+
+
+/* =========================================
+   フッター固定設定 (Fixed Footer)
+   ========================================= */
+
+/* 著作権表示のバー */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3); /* 背景を少し暗くして読みやすく */
+  z-index: 9999;
+  padding: 5px 0;
+  text-align: center;
+}
+
+/* テンプレートクレジット（右下のリンク） */
+.pr {
+  position: fixed;
+  bottom: 40px; /* フッターの少し上 */
+  right: 10px;
+  z-index: 9999;
+}
 ```
 
-### 手順 2: Javaプログラムの更新 (`Main.java`)
+## 3. 確認
 
-プログラムに「`/gallery` というURLが来たら、ギャラリーを表示する」という命令を追加します。
-
-`src/main/java/com/example/Main.java` を開き、`public String diary()` という部分を探してください（261行目付近）。
-その近くに、以下のコードを追加（コピペ）してください。
-
-```java
-    // ギャラリーページを表示する命令
-    @GetMapping("/gallery")
-    @ResponseBody
-    public String gallery() {
-        // 日記データを全て取得する
-        List<Map<String, Object>> entries = jdbcTemplate.queryForList("SELECT * FROM diaries ORDER BY id DESC");
-        Map<String, Object> context = new HashMap<>();
-        context.put("entries", entries);
-        // gallery.html を表示する
-        return render("gallery.html", context);
-    }
-```
-
-### 手順 3: ギャラリーページの作成 (`gallery.html`)
-
-`templates` フォルダの中に、新しく `gallery.html` というファイルを作ってください。
-そして、以下の内容を全てコピペして保存します。
-
-（※ `base.html` に直接書くと他のページに影響が出るため、別ファイルにするのが正解です！）
-
-```html
-{% extends "base.html" %}
-
-{% block content %}
-<main class="masonry-wrapper">
-    <div class="masonry-grid">
-        <!-- 幅計算用の空要素 -->
-        <div class="grid-sizer"></div>
-
-        <!-- 日記データがあるだけ繰り返す -->
-        {% for entry in entries %}
-        <div class="grid-item">
-            
-            <!-- 【変更点】ここを「画像拡大」から「日記ページへのリンク」に変えました -->
-            <a href="/diary/{{ entry.id }}">
-                <img src="{{ entry.image_url }}" alt="{{ entry.title }}">
-            </a>
-
-        </div>
-        {% endfor %}
-
-    </div>
-</main>
-{% endblock %}
-```
-
-## 3. リンクの変更について（追加）
-
-上記の `gallery.html` コードは修正済みです。
-
-- 以前：`<a href="{{ entry.image_url }}" data-fancybox="gallery" ...>`（画像そのものへリンク、拡大機能付き）
-- 今回：`<a href="/diary/{{ entry.id }}">`（日記の詳細ページへリンク）
-
-`data-fancybox` を削除したことで、ポップアップせずに普通のページ遷移として動作します。
-
-## 4. 動作確認
-
-1. Javaのプログラムを変更したので、**再起動**が必要です（停止→再実行）。
-2. ブラウザでトップページを開き、メニューの「GALLERY」をクリック。
-3. アドレスバーが `/gallery` になり、画像がタイル状に並べば成功です！
+1. `style.css` の末尾（手書きデザイン部分）を上記のコードに書き換える。
+2. サーバーを再起動して確認！

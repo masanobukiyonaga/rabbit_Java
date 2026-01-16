@@ -917,6 +917,38 @@ footer small {
   height: auto;
 }
 
+/* 画像オーバーレイ (日付・タイトル) */
+.grid-item a {
+  position: relative;
+  display: block;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  /* 半透明の黒 */
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 0 0 0 10px;
+  /* 左下だけ丸く */
+  text-align: right;
+  max-width: 100%;
+}
+
+.overlay-date {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.overlay-title {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
 /* Tablet (2 Columns) */
 @media (max-width: 900px) {
 
@@ -933,4 +965,268 @@ footer small {
   .grid-sizer {
     width: 100%;
   }
+}
+
+/* =========================================
+   手書きノート風デザイン (Notebook Style)
+   ========================================= */
+
+/* 手書きフォントの適用 */
+.notebook-container {
+  font-family: "Yomogi", cursive;
+  padding: 1rem;
+  /* 2rem -> 1rem に減らしました */
+  display: flex;
+  justify-content: center;
+  /* 画面の高さに合わせるが、内容が多い場合はスクロール可 */
+  min-height: 80vh;
+  align-items: center;
+  /* 上下中央寄せ */
+}
+
+/* ノートの紙のデザイン */
+.notebook-page {
+  background-color: #fcf6e8;
+  background-image: radial-gradient(#dcdcdc 1px, transparent 1px);
+  background-size: 20px 20px;
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  /* 3rem -> 2rem に減らしました */
+  border-radius: 5px;
+  box-shadow:
+    1px 1px 0 rgba(0, 0, 0, 0.1),
+    5px 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  color: #4a3b32;
+  margin-bottom: 40px;
+  /* フッターとかぶらないように余白 */
+}
+
+/* 日付 */
+.notebook-date {
+  display: block;
+  font-size: 1.1rem;
+  text-align: right;
+  margin-bottom: 0.2rem;
+  color: #666;
+}
+
+/* タイトル */
+.notebook-title {
+  font-size: 1.5rem;
+  /* 少し小さく */
+  text-align: center;
+  border-bottom: 2px dashed #ccc;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 写真の装飾 */
+.notebook-photo-frame {
+  background: #fff;
+  padding: 8px;
+  /* 10px -> 8px */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transform: rotate(-2deg);
+  width: 70%;
+  /* 80% -> 70% にして高さを抑える */
+  margin: 0 auto 1.5rem auto;
+  /* 2rem -> 1.5rem */
+  max-width: 400px;
+}
+
+.notebook-photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 本文 */
+.notebook-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  /* 2.0 -> 1.8 に詰める */
+  white-space: pre-wrap;
+}
+
+/* 戻るボタン */
+.button-handwritten {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.4rem 1.2rem;
+  border: 2px solid #4a3b32;
+  border-radius: 20px 5px 20px 5px;
+  color: #4a3b32;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.button-handwritten:hover {
+  background: #4a3b32;
+  color: #fff;
+  transform: scale(1.05);
+  /* ポヨンと拡大 */
+}
+
+
+/* =========================================
+   フッター固定設定 (Fixed Footer)
+   ========================================= */
+
+/* 著作権表示のバー */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  /* 背景を少し暗くして読みやすく */
+  z-index: 9999;
+  padding: 5px 0;
+  text-align: center;
+}
+
+/* テンプレートクレジット（右下のリンク） */
+.pr {
+  position: fixed;
+  bottom: 40px;
+  /* フッターの少し上 */
+  right: 10px;
+  z-index: 9999;
+}
+
+/* =========================================
+   ログイン画面デザイン (Login Page)
+   ========================================= */
+
+/* 画面全体：中央寄せ */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  /* 画面の高さの80%を使って中央配置 */
+  padding: 1rem;
+
+  /* 【重要】左メニューバー対策 */
+  /* メニューバーの幅(通常250-300px) + 余白 を確保 */
+}
+
+/* スマホ表示（メニューが上に来る場合）の調整 */
+@media (max-width: 900px) {
+  .login-wrapper {
+    padding-left: 1rem;
+    /* スマホなら左余白はリセット */
+    align-items: center;
+    padding-top: 100px;
+    /* 上にメニューが来るので少し下げる */
+  }
+}
+
+/* ガラス風カード */
+.login-card {
+  background: rgba(255, 255, 255, 0.15);
+  /* 白の半透明 */
+  backdrop-filter: blur(10px);
+  /* すりガラス効果 */
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* 薄い枠線 */
+  border-radius: 20px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  /* 深い影で浮遊感 */
+  text-align: center;
+  color: #fff;
+}
+
+.login-title {
+  font-family: 'Jost', sans-serif;
+  /* 英語フォント */
+  font-size: 2rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 1rem;
+}
+
+/* エラーメッセージ */
+.error-message {
+  color: #ffcccc;
+  background: rgba(255, 0, 0, 0.2);
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* フォーム部品 */
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+  letter-spacing: 0.1em;
+}
+
+.input-modern {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 30px;
+  /* 丸く */
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.input-modern:focus {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ボタン */
+.button-modern {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 30px;
+  background: #fff;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button-modern:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 戻るリンク */
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: #fff;
 }

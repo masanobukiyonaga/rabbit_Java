@@ -1,25 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <h2>ログイン</h2>
 
-  {% if error %}
-  <p style="color: red;">{{ error }}</p>
-  {% endif %}
+<!-- ログイン画面全体を包むラッパー -->
+<div class="login-wrapper">
 
-  <form method="POST" class="form-card">
-    <label>ユーザー名：<br>
-      <input type="text" name="username" class="input-field" required>
-    </label><br><br>
+  <!-- 半透明のガラス風カード -->
+  <div class="login-card">
+    <h2 class="login-title">LOGIN</h2>
 
-    <label>パスワード：<br>
-      <input type="password" name="password" class="input-field" required>
-    </label><br><br>
+    {% if error %}
+    <p class="error-message">{{ error }}</p>
+    {% endif %}
 
-    <button type="submit" class="button">ログイン</button>
-  </form>
-  <div class="button-group" style="margin-top: 1.5rem;">
-    <a href="/" class="button">🏠 トップページへ戻る</a>
+    <form method="POST" class="login-form">
+      <div class="form-group">
+        <label>USERNAME</label>
+        <input type="text" name="username" class="input-modern" required placeholder="User Name">
+      </div>
+
+      <div class="form-group">
+        <label>PASSWORD</label>
+        <input type="password" name="password" class="input-modern" required placeholder="Password">
+      </div>
+
+      <button type="submit" class="button-modern">ENTER</button>
+    </form>
+
+    <div class="login-footer">
+      <a href="/" class="back-link">← HOME</a>
+    </div>
   </div>
+
 </div>
 {% endblock %}

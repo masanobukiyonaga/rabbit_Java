@@ -13,6 +13,10 @@
             <!-- 【変更点】ここを「画像拡大」から「日記ページへのリンク」に変えました -->
             <a href="/diary/{{ entry.id }}">
                 <img src="{{ entry.image_url }}" alt="{{ entry.title }}">
+                <div class="image-overlay">
+                    <span class="overlay-date">{{ entry.date }}</span>
+                    <span class="overlay-title">{{ entry.title }}</span>
+                </div>
             </a>
 
         </div>
