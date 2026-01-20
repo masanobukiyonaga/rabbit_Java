@@ -6,7 +6,7 @@
   <title>うづきちゃんの部屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="うづきちゃんとの日々を綴るサイト">
-  <link rel="stylesheet" href="/static/css/style.css?v=7">
+  <link rel="stylesheet" href="/static/css/style.css?v=15">
   <link rel="stylesheet" href="/static/css/slide.css?v=2">
   <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
   <!-- Google Fonts (Template default + Noto Sans JP just in case) -->
@@ -29,7 +29,9 @@
         <ul>
           <li><a href="/"><i class="fa-solid fa-house"></i>HOME</a></li>
           <li><a href="/gallery"><i class="fa-solid fa-camera"></i>GALLERY</a></li>
+          <li><a href="/diary"><i class="fa-solid fa-book"></i>DIARY</a></li>
           {% if session.logged_in %}
+          <li><a href="/diary/new"><i class="fa-solid fa-pen"></i>NEW DIARY</a></li>
           <li><a href="/logout"><i class="fa-solid fa-sign-out-alt"></i>LOGOUT</a></li>
           {% else %}
           <li><a href="/login"><i class="fa-solid fa-sign-in-alt"></i>LOGIN</a></li>

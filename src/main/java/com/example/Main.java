@@ -236,7 +236,7 @@ class AppController {
                     RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
             return CLOUDFRONT_URL + "/" + uniqueFilename;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -407,7 +407,7 @@ class AppController {
 
         if (appUsername.equals(username) && appPassword.equals(password)) {
             session.setAttribute("logged_in", true);
-            response.sendRedirect("/diary");
+            response.sendRedirect("/");
         } else {
             Map<String, Object> context = new HashMap<>();
             context.put("error", "ユーザー名またはパスワードが間違っています");

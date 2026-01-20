@@ -317,38 +317,34 @@ header nav i {
 /*ブロック全体*/
 .new-top {
   position: absolute;
-  left: 0px;
+  /* 左右を0にして margin: auto で中央寄せするテクニック */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+
   bottom: 40px;
-  /*画面の下から40pxの場所に配置*/
   z-index: 1;
-  width: 100%;
+
+  /* 幅はスマホ基準で94%くらい */
+  width: 94%;
+  max-width: 1000px;
+  /* PCでも1000px以上は広がらない */
+
   display: flex;
   background: rgba(0, 0, 0, 0.3);
-  /*背景色。0,0,0は黒のことで0.3は色が30%でた状態*/
   padding: 0 0.8rem 0 1rem;
-  /*ブロック内の余白。上、右、下、左への順番。*/
+  box-sizing: border-box;
+  /* パディングを含めた幅計算にする */
 }
 
-/*画面幅700px以上の追加指定*/
 @media (min-width:700px) {
-
   .new-top {
     bottom: 100px;
-    /*画面の下から100pxの場所に配置*/
-    left: 100px;
-    /*左から100pxの場所に配置*/
-    width: calc(100% - 200px);
-    /*画面の左右中央に配置されるよう、調整*/
+    /* PCなら少し丸くする等の装飾だけ残す（位置調整は不要！） */
     border-radius: 100px;
-    /*角を丸くする指定*/
     padding: 0 1.2rem 0 2rem;
-    /*ブロック内の余白。上、右、下、左への順番。*/
   }
-
 }
-
-/*追加指定ここまで*/
-
 
 /*テキストのブロック*/
 .new-top .text {
@@ -408,32 +404,12 @@ header nav i {
 /*mainコンテンツ（トップページ以外の）
 ---------------------------------------------------------------------------*/
 body:not(.home) main {
-  margin: 20px 30px 20px 60px;
-  /*上、右、下、左へ空けるスペース*/
+  margin-left: calc(var(--header-size) + 2rem);
+  /* ヘッダーの幅＋余白分だけ左を空ける */
+  margin-right: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
-
-/*画面幅700px以上の追加指定*/
-@media (min-width:700px) {
-
-  body:not(.home) main {
-    margin: 70px 60px 70px 100px;
-  }
-
-}
-
-/*追加指定ここまで*/
-
-
-/*画面幅1000px以上の追加指定*/
-@media (min-width:1000px) {
-
-  body:not(.home) main {
-    margin: 100px 100px 100px 150px;
-  }
-
-}
-
-/*追加指定ここまで*/
 
 
 /*各ページの背景画像
@@ -1048,6 +1024,20 @@ footer small {
   line-height: 1.8;
   /* 2.0 -> 1.8 に詰める */
   white-space: pre-wrap;
+  text-align: left;
+  /* 左揃えを強制 */
+  width: fit-content;
+  /* 中身（文字）に合わせて箱のサイズを決める */
+  max-width: 90%;
+  /* ただし画面からはみ出さないように制限 */
+  margin: 2rem auto;
+  /* 上下余白＋左右自動（これで中央に来る） */
+
+  /* レイアウト崩れ防止 */
+  min-width: 300px;
+  /* 極端に小さくなりすぎないように最低幅を確保 */
+  padding: 1.5rem;
+  /* 文字の周りに少し余白を持たせる */
 }
 
 /* 戻るボタン */
@@ -1229,4 +1219,145 @@ footer {
 
 .back-link:hover {
   color: #fff;
+}
+
+/* =========================================
+   日記一覧リスト (Diary List Redesign)
+   ========================================= */
+
+/* 1. 位置調整用ラッパー（サイドバー対策） */
+.diary-wrapper {
+  display: flex;
+  justify-content: center;
+  /* 左右中央寄せ */
+  min-height: 100vh;
+  padding: 50px 2rem;
+  /* 上下と左右の余白 */
+
+  box-sizing: border-box;
+}
+
+/* 2. 黒い半透明カード（背景） */
+.diary-list-card {
+  background: rgba(0, 0, 0, 0.7);
+  /* 背景色（黒の70%濃さで読みやすく） */
+  padding: 3rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 900px;
+  /* カードの最大幅 */
+  color: #fff;
+  /* 文字色を白に */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  /* 影をつけて浮き上がらせる */
+  height: fit-content;
+  /* 中身に合わせて高さを自動調整 */
+}
+
+/* ページタイトル (DIARY) */
+.page-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  border-left: 4px solid #fff;
+  padding-left: 1rem;
+  text-align: left;
+}
+
+/* 3. 本文の省略表示 */
+.diary-text-preview {
+  display: block;
+  white-space: nowrap;
+  /* 改行させない（1行にする） */
+  overflow: hidden;
+  /* はみ出た部分を隠す */
+  text-overflow: ellipsis;
+  /* はみ出た部分を「...」にする */
+  max-width: 500px;
+  /* 幅制限（画面サイズに応じて調整） */
+  color: #ccc;
+  /* 少し薄い色にして「プレビュー感」を出す */
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+  .diary-text-preview {
+    max-width: 200px;
+    /* スマホならもっと短く */
+  }
+}
+
+/* リンク文字の装飾 */
+.ta1 th a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.5);
+  transition: all 0.3s;
+  display: inline-block;
+  /* アニメーション用にブロック化 */
+}
+
+.ta1 th a:hover {
+  color: #bfaee3;
+  /* ホバー時はラベンダー色 */
+  border-bottom: 1px solid #bfaee3;
+  transform: translateX(10px);
+  /* 右にスライド */
+}
+
+/* テーブル全体の調整 */
+.ta1 {
+  width: 100%;
+  border-collapse: collapse;
+  /* 隙間をなくす */
+}
+
+.ta1 th,
+.ta1 td {
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  /* 区切り線を薄く */
+}
+
+.ta1 th {
+  width: 30%;
+  /* タイトル列の幅 */
+  vertical-align: top;
+}
+
+/* スマホ対応（レスポンシブ） */
+@media (max-width: 900px) {
+  .diary-wrapper {
+    padding-left: 1rem;
+    /* スマホでは左余白をなくす */
+    padding-top: 100px;
+    /* 上にメニューが来るので下げる */
+  }
+
+  .diary-list-card {
+    padding: 1.5rem;
+  }
+
+  /* スマホでは縦並びにする */
+  .ta1 th,
+  .ta1 td {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .ta1 th {
+    border-bottom: none;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .ta1 td {
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
+  }
 }

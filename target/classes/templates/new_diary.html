@@ -1,26 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <h2>うづきちゃんの日記を書く</h2>
+<div class="diary-wrapper">
 
-  <form method="POST" action="/diary/new" enctype="multipart/form-data" class="form-card">
-    <label>タイトル：<br>
-      <input type="text" name="title" required class="input-field">
-    </label><br><br>
+  <div class="diary-list-card">
+    <h2 class="page-title">NEW DIARY</h2>
 
-    <label>本文：<br>
-      <textarea name="content" rows="5" required class="input-area"></textarea>
-    </label><br><br>
+    <form method="POST" action="/diary/new" enctype="multipart/form-data">
 
-    <label>画像をアップロード：<br>
-      <input type="file" name="image" accept="image/*" class="input-file">
-    </label><br><br>
+      <div class="form-group">
+        <label>TITLE</label>
+        <input type="text" name="title" required class="input-modern" placeholder="日記のタイトルを入力">
+      </div>
 
-    <button type="submit" class="button">🐰 投稿する</button>
-  </form>
+      <div class="form-group">
+        <label>CONTENT</label>
+        <textarea name="content" rows="10" required class="input-modern" style="border-radius: 20px;"
+          placeholder="今日あったことを書く..."></textarea>
+      </div>
 
-  <div class="button-group" style="margin-top: 1.5rem;">
-    <a href="/diary" class="button">← 戻る</a>
+      <div class="form-group">
+        <label>IMAGE (Optional)</label>
+        <div style="margin-top: 0.5rem;">
+          <input type="file" name="image" accept="image/*" style="color: #fff;">
+        </div>
+      </div>
+
+      <button type="submit" class="button-modern">🐰 投稿する</button>
+
+    </form>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="/diary" class="back-link">← 日記一覧に戻る</a>
+    </div>
+
   </div>
+
 </div>
 {% endblock %}

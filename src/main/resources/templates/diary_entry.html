@@ -18,13 +18,24 @@
     {% endif %}
 
     <!-- 本文エリア -->
-    <div class="notebook-content">
-      {{ entry.content }}
-    </div>
+    <div class="notebook-content">{{ entry.content }}</div>
 
     <!-- 戻るボタン -->
-    <div class="notebook-footer">
-      <a href="/gallery" class="button-handwritten">← 戻る</a>
+    <div class="notebook-footer" style="display: flex; justify-content: space-between; align-items: center;">
+      <a href="/diary" class="button-handwritten">← 戻る</a>
+
+      {% if session.logged_in %}
+      <div style="display: flex; gap: 1rem;">
+        <a href="/diary/{{ entry.id }}/edit" class="button-handwritten"
+          style="color: #007bff; border-color: #007bff;">編集</a>
+
+        <form action="/diary/{{ entry.id }}/delete" method="POST" onsubmit="return confirm('本当に削除しますか？');"
+          style="margin: 0;">
+          <button type="submit" class="button-handwritten"
+            style="color: #dc3545; border-color: #dc3545; background: none; cursor: pointer;">削除</button>
+        </form>
+      </div>
+      {% endif %}
     </div>
 
   </div>

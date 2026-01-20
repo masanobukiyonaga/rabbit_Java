@@ -1,22 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <h2>日記を編集する</h2>
+<div class="diary-wrapper">
 
-  <form method="POST" class="form-card">
-    <label>タイトル：<br>
-      <input type="text" name="title" value="{{ entry.title }}" required class="input-field">
-    </label><br><br>
+  <div class="diary-list-card">
+    <h2 class="page-title">EDIT DIARY</h2>
 
-    <label>本文：<br>
-      <textarea name="content" rows="5" required class="input-area">{{ entry.content }}</textarea>
-    </label><br><br>
+    <form method="POST" action="/diary/{{ entry.id }}/edit" enctype="multipart/form-data">
 
-    <button type="submit" class="button">💾 保存する</button>
-  </form>
+      <div class="form-group">
+        <label>TITLE</label>
+        <input type="text" name="title" value="{{ entry.title }}" required class="input-modern">
+      </div>
 
-  <div class="button-group" style="margin-top: 1.5rem;">
-    <a href="/diary" class="button">← 戻る</a>
+      <div class="form-group">
+        <label>CONTENT</label>
+        <textarea name="content" rows="10" required class="input-modern"
+          style="border-radius: 20px;">{{ entry.content }}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label>IMAGE (Update Optional)</label>
+        <div style="margin-top: 0.5rem;">
+          <input type="file" name="image" accept="image/*" style="color: #fff;">
+        </div>
+        {% if entry.image_url %}
+        <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">現在の画像: {{ entry.image_url }}</p>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="button-modern">💾 保存する</button>
+
+    </form>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="/diary/{{ entry.id }}" class="back-link">← キャンセルして戻る</a>
+    </div>
+
   </div>
+
 </div>
 {% endblock %}
