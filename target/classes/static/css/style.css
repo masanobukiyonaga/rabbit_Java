@@ -1361,3 +1361,7 @@ footer {
     border-left: 2px solid rgba(255, 255, 255, 0.3);
   }
 }
+/* Logo Transparency Fix */
+#logo img {
+    mix-blend-mode: multiply;
+}

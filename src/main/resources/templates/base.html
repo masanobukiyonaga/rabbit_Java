@@ -6,8 +6,8 @@
   <title>うづきちゃんの部屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="うづきちゃんとの日々を綴るサイト">
-  <link rel="stylesheet" href="/static/css/style.css?v=15">
-  <link rel="stylesheet" href="/static/css/slide.css?v=2">
+  <link rel="stylesheet" href="/css/style.css?v=16">
+  <link rel="stylesheet" href="/css/slide.css?v=2">
   <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
   <!-- Google Fonts (Template default + Noto Sans JP just in case) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
 
     <header>
 
-      <h1 id="logo"><a href="/"><img src="/static/images/logo.png" alt="うづきちゃんの部屋"></a></h1>
+      <h1 id="logo"><a href="/"><img src="/images/logo.png?v=original" alt=""></a></h1>
 
       <nav>
         <ul>
@@ -34,6 +34,7 @@
           <li><a href="/diary/new"><i class="fa-solid fa-pen"></i>NEW DIARY</a></li>
           <li><a href="/logout"><i class="fa-solid fa-sign-out-alt"></i>LOGOUT</a></li>
           {% else %}
+          <li><a href="/timothy"><i class="fa-solid fa-leaf"></i>TIMOTHY</a></li>
           <li><a href="/login"><i class="fa-solid fa-sign-in-alt"></i>LOGIN</a></li>
           {% endif %}
         </ul>
@@ -71,7 +72,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/5.0.0/imagesloaded.pkgd.min.js"></script>
-    <script src="/static/js/main.js?v=2"></script>
+    <script src="/js/main.js?v=2"></script>
 
   </div>
 </body>

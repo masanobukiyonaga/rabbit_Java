@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="notebook-container">
+    <div class="notebook-page">
+
+        <!-- 日付とタイトルエリア -->
+        <div class="notebook-header">
+            <span class="notebook-date">{{ date }}</span>
+            <h2 class="notebook-title">TITLE: 『 投げ銭機能について 』</h2>
+        </div>
+
+        <!-- 写真エリア（テープで貼った風） -->
+        <div class="notebook-photo-frame">
+            <!-- 好きな画像を /static/images/ に置いて、ここを変更してください -->
+            <img src="/static/images/0513.jpg" alt="感謝の画像">
+        </div>
+
+        <!-- 本文エリア -->
+        <div class="notebook-content" style="text-align: center; white-space: normal;">
+            <p>いつも応援ありがとうございます！<br>
+                いただいた投げ銭は、全てうづきちゃんの餌や、病院代、<br>
+                そしてこのサイトの運営費に使わせていただきます。</p>
+
+            <p>これからも元気な姿をお届けできるように、飼い主共々がんばります！</p>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://buy.stripe.com/test_6oU8wIa1x11a1Os9UFdnW00" class="btn"
+                    style="background: #eecbc4; padding: 10px 20px; border-radius: 50px; text-decoration: none; color: #333; font-weight: bold;"
+                    target="_blank">
+                    <i class="fa-solid fa-leaf"></i> おやつをあげる
+                </a>
+            </div>
+        </div>
+
+        <!-- 戻るボタン -->
+        <div class="notebook-footer" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="/" class="button-handwritten">← TOPに戻る</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

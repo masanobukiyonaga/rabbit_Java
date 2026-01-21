@@ -35,7 +35,7 @@ import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -62,7 +62,7 @@ public class Main {
         dataSource.setUrl(
                 "jdbc:mysql://april-diary-db.c9ouqcm6qmdp.ap-northeast-1.rds.amazonaws.com:3306/april_diary?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo");
         dataSource.setUsername("admin");
-        String dbPassword = System.getProperty("DB_PASSWORD");
+        String dbPassword = System.getenv("DB_PASSWORD");
         if (dbPassword == null) {
             dbPassword = "8108za10";
         }
@@ -250,7 +250,7 @@ class AppController {
         rabbit.put("age", "4歳");
         rabbit.put("gender", "女の子");
         rabbit.put("favorite_food", "乾燥りんご");
-        rabbit.put("hobby", "チモシーとうんこを散らかす");
+        rabbit.put("hobby", "チモシーを散らかす");
         rabbit.put("image", "0513.jpg");
 
         Map<String, Object> context = new HashMap<>();
@@ -261,10 +261,46 @@ class AppController {
     @GetMapping("/diary")
     @ResponseBody
     public String diary() {
-        List<Map<String, Object>> entries = jdbcTemplate.queryForList("SELECT * FROM diaries ORDER BY id DESC");
+        try {
+            List<Map<String, Object>> entries = jdbcTemplate.queryForList("SELECT * FROM diaries ORDER BY id DESC");
+            Map<String, Object> context = new HashMap<>();
+            context.put("entries", entries);
+            return render("diary.html", context);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Internal Server Error: " + e.getMessage();
+        }
+    }
+
+    @GetMapping("/debug/env")
+    @ResponseBody
+    public String debugEnv() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("DB_PASSWORD_ENV: ").append(System.getenv("DB_PASSWORD") != null ? "SET" : "NULL").append("<br>");
+        sb.append("DB_PASSWORD_PROP: ").append(System.getProperty("DB_PASSWORD") != null ? "SET" : "NULL")
+                .append("<br>");
+        return sb.toString();
+    }
+
+    @GetMapping("/debug/css")
+    @ResponseBody
+    public String debugCss() {
+        try (InputStream in = getClass().getResourceAsStream("/static/css/style.css")) {
+            if (in == null)
+                return "CSS NOT FOUND in /static/css/style.css";
+            return "CSS FOUND! Size: " + in.readAllBytes().length;
+        } catch (IOException e) {
+            return "Error reading CSS: " + e.getMessage();
+        }
+    }
+
+    // 投げ銭ページ
+    @GetMapping("/timothy")
+    @ResponseBody
+    public String timothy() {
         Map<String, Object> context = new HashMap<>();
-        context.put("entries", entries);
-        return render("diary.html", context);
+        context.put("date", LocalDate.now().toString());
+        return render("timothy.html", context);
     }
 
     // ギャラリーページを表示する命令
@@ -397,11 +433,11 @@ class AppController {
             @RequestParam("password") String password,
             HttpSession session,
             HttpServletResponse response) throws IOException {
-        String appUsername = System.getProperty("APP_USERNAME");
+        String appUsername = System.getenv("APP_USERNAME");
         if (appUsername == null)
             appUsername = "admin";
 
-        String appPassword = System.getProperty("APP_PASSWORD");
+        String appPassword = System.getenv("APP_PASSWORD");
         if (appPassword == null)
             appPassword = "8108za10";
 
